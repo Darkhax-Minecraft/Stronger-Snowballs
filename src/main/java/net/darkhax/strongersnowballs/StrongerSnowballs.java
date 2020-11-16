@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.Mod;
 @Mod("strongersnowballs")
 public class StrongerSnowballs {
     
-    public static final INamedTag<EntityType<?>> HURT_BY_SNOW = EntityTypeTags.func_232896_a_("strongersnowballs:hurt_by_snow");
+    public static final INamedTag<EntityType<?>> HURT_BY_SNOW = EntityTypeTags.getTagById("strongersnowballs:hurt_by_snow");
     
     public StrongerSnowballs() {
         
