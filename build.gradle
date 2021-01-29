@@ -49,11 +49,13 @@ minecraft {
     }
     
     runs {
+    
         client {
         
             workingDirectory project.file('run')
             taskName "${mod_name}".replaceAll("\\s","") + 'Client'
-
+            property 'forge.logging.console.level', 'debug'
+            
             mods {
                 strongersnowballs {
                     source sourceSets.main
@@ -62,8 +64,10 @@ minecraft {
         }
 
         server {
+        
             workingDirectory project.file('run')
             taskName "${mod_name}".replaceAll("\\s","") + 'Server'
+            property 'forge.logging.console.level', 'debug'
             
             mods {
                 strongersnowballs {
