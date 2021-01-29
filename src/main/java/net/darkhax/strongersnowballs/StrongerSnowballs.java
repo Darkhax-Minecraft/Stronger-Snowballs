@@ -20,17 +20,21 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.network.FMLNetworkConstants;
 
 @Mod("strongersnowballs")
 public class StrongerSnowballs {
     
-	public static final Logger LOG = LogManager.getLogger("Stronger Snowballs");
+    public static final Logger LOG = LogManager.getLogger("Stronger Snowballs");
     public static final INamedTag<EntityType<?>> HURT_BY_SNOW = EntityTypeTags.getTagById("strongersnowballs:hurt_by_snow");
+    
+    private final Configuration config = new Configuration();
     
     public StrongerSnowballs() {
         
-        ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true));
+        ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of( () -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true));
+        ModLoadingContext.get().registerConfig(Type.COMMON, this.config.getSpec());
         MinecraftForge.EVENT_BUS.addListener(this::onLivingHurt);
         MinecraftForge.EVENT_BUS.addListener(EventPriority.LOWEST, this::onRecipesSynced);
     }
@@ -41,20 +45,28 @@ public class StrongerSnowballs {
             
             final LivingEntity target = event.getEntityLiving();
             
-            target.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 35, 10));
-            
-            if (HURT_BY_SNOW.contains(target.getType())) {
+            if (this.config.getSlownessEnabled() && tryPercentage(this.config.getSlownessChance())) {
                 
-                event.setAmount(event.getAmount() + 1);
+                target.addPotionEffect(new EffectInstance(Effects.SLOWNESS, this.config.getSlownessDuration(), this.config.getSlownessStrength()));
+            }
+            
+            if (this.config.getDamageEnabled() && HURT_BY_SNOW.contains(target.getType()) && tryPercentage(this.config.getDamageChance())) {
+                
+                event.setAmount(event.getAmount() + this.config.getDamageAmount());
             }
         }
     }
     
     private void onRecipesSynced (RecipesUpdatedEvent event) {
         
-    	final List<EntityType<?>> validMobs = HURT_BY_SNOW.getAllElements();
-    	
-    	LOG.debug("The tag {} contained {} entries.", HURT_BY_SNOW.getName(), validMobs.size());
-    	validMobs.forEach(entry -> LOG.debug("Loaded {} as a valid target for mobs hurt by snowballs.", entry.getRegistryName()));
+        final List<EntityType<?>> validMobs = HURT_BY_SNOW.getAllElements();
+        
+        LOG.debug("The tag {} contained {} entries.", HURT_BY_SNOW.getName(), validMobs.size());
+        validMobs.forEach(entry -> LOG.debug("Loaded {} as a valid target for mobs hurt by snowballs.", entry.getRegistryName()));
+    }
+    
+    private static boolean tryPercentage (double percent) {
+        
+        return Math.random() < percent;
     }
 }
