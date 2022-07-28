@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[41,)"
+loaderVersion = "[42,)"
 license = "${mod_license}"
 issueTrackerURL = "${mod_issues}"
 
@@ -20,6 +20,6 @@ itemIcon = "minecraft:snowball"
 [[dependencies.${ mod_id }]]
 modId = "forge"
 mandatory = true
-versionRange = "[41.1.0,)"
+versionRange = "[42,)"
 ordering = "NONE"
 side = "BOTH"
