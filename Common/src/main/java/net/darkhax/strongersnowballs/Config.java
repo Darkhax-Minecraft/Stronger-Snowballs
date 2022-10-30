@@ -17,6 +17,9 @@ public class Config {
 
     @Expose
     public SlownessEffect slownessEffect = new SlownessEffect();
+
+    @Expose
+    public boolean damageAllMobs = false;
     
     public static class SlownessEffect {
 

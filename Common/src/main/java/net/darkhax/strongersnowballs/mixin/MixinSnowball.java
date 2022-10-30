@@ -24,9 +24,13 @@ public class MixinSnowball {
 
         if (hitEntity instanceof LivingEntity living) {
 
-            final Snowball self = (Snowball)(Object)this;
             final Config config = StrongerSnowballsCommon.instance.config;
-            living.hurt(DamageSource.thrown(self, self.getOwner()), config.snowballDamage);
+
+            if (config.damageAllMobs || hitEntity.getType().is(StrongerSnowballsCommon.instance.HURT_BY_SNOW)) {
+
+                final Snowball self = (Snowball)(Object)this;
+                living.hurt(DamageSource.thrown(self, self.getOwner()), config.snowballDamage);
+            }
 
             if (config.slownessEffect.enabled && StrongerSnowballsCommon.tryPercentage(config.slownessEffect.chance)) {
 
