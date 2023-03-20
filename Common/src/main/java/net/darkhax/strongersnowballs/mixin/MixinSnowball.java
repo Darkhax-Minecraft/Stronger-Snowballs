@@ -2,7 +2,6 @@ package net.darkhax.strongersnowballs.mixin;
 
 import net.darkhax.strongersnowballs.Config;
 import net.darkhax.strongersnowballs.StrongerSnowballsCommon;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -29,7 +28,7 @@ public class MixinSnowball {
             if (config.damageAllMobs || hitEntity.getType().is(StrongerSnowballsCommon.instance.HURT_BY_SNOW)) {
 
                 final Snowball self = (Snowball)(Object)this;
-                living.hurt(DamageSource.thrown(self, self.getOwner()), config.snowballDamage);
+                living.hurt(self.level.damageSources().thrown(self, self.getOwner()), config.snowballDamage);
             }
 
             if (config.slownessEffect.enabled && StrongerSnowballsCommon.tryPercentage(config.slownessEffect.chance)) {
