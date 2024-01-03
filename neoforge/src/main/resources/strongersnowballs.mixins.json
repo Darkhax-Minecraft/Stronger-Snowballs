@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "package": "net.darkhax.strongersnowballs.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "MixinSnowball"
+  ],
+  "minVersion": "0.8"
+}
