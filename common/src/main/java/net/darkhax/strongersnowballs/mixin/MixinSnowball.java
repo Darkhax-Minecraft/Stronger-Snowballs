@@ -21,7 +21,7 @@ public class MixinSnowball {
 
         final Entity hitEntity = hit.getEntity();
 
-        if (hitEntity instanceof LivingEntity living) {
+        if (hitEntity instanceof LivingEntity living && living.canFreeze()) {
 
             final Config config = StrongerSnowballsCommon.instance.config;
 
@@ -36,7 +36,7 @@ public class MixinSnowball {
                 living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, config.slownessEffect.durationTicks, config.slownessEffect.amplifier));
             }
 
-            if (config.freezeEffect.enabled && living.canFreeze()) {
+            if (config.freezeEffect.enabled) {
 
                 if (living.getRandom().nextDouble() < config.freezeEffect.instantFreezeChance) {
 
