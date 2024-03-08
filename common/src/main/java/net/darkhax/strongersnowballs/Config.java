@@ -45,13 +45,13 @@ public class Config {
         public boolean enabled = true;
 
         @Expose
-        public int durationTicks = 35;
+        public int durationTicks = 15;
 
         @Expose
-        public int amplifier = 10;
+        public int amplifier = 1;
 
         @Expose
-        public float chance = 1f;
+        public float chance = 0.4f;
     }
 
     public static Config load(File configFile) {
