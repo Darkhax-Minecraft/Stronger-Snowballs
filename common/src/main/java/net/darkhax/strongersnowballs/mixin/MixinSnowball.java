@@ -27,13 +27,26 @@ public class MixinSnowball {
 
             if (config.damageAllMobs || hitEntity.getType().is(StrongerSnowballsCommon.instance.HURT_BY_SNOW)) {
 
-                final Snowball self = (Snowball)(Object)this;
+                final Snowball self = (Snowball) (Object) this;
                 living.hurt(self.level().damageSources().thrown(self, self.getOwner()), config.snowballDamage);
             }
 
             if (config.slownessEffect.enabled && StrongerSnowballsCommon.tryPercentage(config.slownessEffect.chance)) {
 
                 living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, config.slownessEffect.durationTicks, config.slownessEffect.amplifier));
+            }
+
+            if (config.freezeEffect.enabled && living.canFreeze()) {
+
+                if (living.getRandom().nextDouble() < config.freezeEffect.instantFreezeChance) {
+
+                    living.setTicksFrozen(living.getTicksRequiredToFreeze() + 120);
+                }
+
+                else if (config.freezeEffect.freezeAmount > 0 && living.getRandom().nextDouble() < config.freezeEffect.freezeChance) {
+
+                    living.setTicksFrozen(Math.min(living.getTicksRequiredToFreeze() + 120, living.getTicksFrozen() + config.freezeEffect.freezeAmount));
+                }
             }
         }
     }

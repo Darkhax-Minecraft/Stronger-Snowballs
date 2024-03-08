@@ -20,6 +20,24 @@ public class Config {
 
     @Expose
     public boolean damageAllMobs = false;
+
+    @Expose
+    public FreezeEffect freezeEffect = new FreezeEffect();
+
+    public static class FreezeEffect {
+
+        @Expose
+        public boolean enabled = true;
+
+        @Expose
+        public float freezeChance = 0.8f;
+
+        @Expose
+        public int freezeAmount = 40;
+
+        @Expose
+        public float instantFreezeChance = 0f;
+    }
     
     public static class SlownessEffect {
 
