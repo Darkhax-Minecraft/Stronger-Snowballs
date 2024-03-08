@@ -6,6 +6,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.phys.EntityHitResult;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,7 +22,7 @@ public class MixinSnowball {
 
         final Entity hitEntity = hit.getEntity();
 
-        if (hitEntity instanceof LivingEntity living && living.canFreeze()) {
+        if (hitEntity instanceof LivingEntity living && living.canFreeze() && !(living instanceof Player player && player.getAbilities().instabuild)) {
 
             final Config config = StrongerSnowballsCommon.instance.config;
 
@@ -38,12 +39,12 @@ public class MixinSnowball {
 
             if (config.freezeEffect.enabled) {
 
-                if (living.getRandom().nextDouble() < config.freezeEffect.instantFreezeChance) {
+                if (StrongerSnowballsCommon.tryPercentage(config.freezeEffect.instantFreezeChance)) {
 
                     living.setTicksFrozen(living.getTicksRequiredToFreeze() + 120);
                 }
 
-                else if (config.freezeEffect.freezeAmount > 0 && living.getRandom().nextDouble() < config.freezeEffect.freezeChance) {
+                else if (config.freezeEffect.freezeAmount > 0 && StrongerSnowballsCommon.tryPercentage(config.freezeEffect.freezeChance)) {
 
                     living.setTicksFrozen(Math.min(living.getTicksRequiredToFreeze() + 120, living.getTicksFrozen() + config.freezeEffect.freezeAmount));
                 }
