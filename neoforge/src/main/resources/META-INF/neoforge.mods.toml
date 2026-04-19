@@ -1,0 +1,36 @@
+modLoader = "javafml"
+license = "LGPL V2.1"
+issueTrackerURL = "https://github.com/Darkhax-Minecraft/Stronger-Snowballs/issues"
+
+[[mods]]
+modId = "strongersnowballs"
+version = "26.1.2.0"
+displayName = "StrongerSnowballs"
+updateJSONURL = "https://updates.blamejared.com/get?n=strongersnowballs&gv=26.1.2&ml=neoforge"
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/stronger-snowballs"
+logoFile = "logo_strongersnowballs.png"
+logoBlur = false
+credits = "This project is made possible with Patreon support from players like you. Thank you! lothrazar, techsquirrel, Keyana , Darkosto, Tobias Ward, noobanidus"
+authors = "Darkhax"
+description = "Gives snowballs a needed buff!"
+
+[[mixins]]
+config = "strongersnowballs.common.mixins.json"
+
+[[mixins]]
+config = "strongersnowballs.neoforge.mixins.json"
+
+[[dependencies.strongersnowballs]]
+modId = "minecraft"
+type = "required"
+versionRange = "26.1"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.strongersnowballs]]
+modId = "neoforge"
+type = "required"
+versionRange = "[26.1.0.1-beta,)"
+ordering = "NONE"
+side = "BOTH"
+
