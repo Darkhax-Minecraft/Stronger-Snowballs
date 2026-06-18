@@ -4,9 +4,9 @@ issueTrackerURL = "https://github.com/Darkhax-Minecraft/Stronger-Snowballs/issue
 
 [[mods]]
 modId = "strongersnowballs"
-version = "26.1.2.0"
+version = "26.2.0.0"
 displayName = "StrongerSnowballs"
-updateJSONURL = "https://updates.blamejared.com/get?n=strongersnowballs&gv=26.1.2&ml=neoforge"
+updateJSONURL = "https://updates.blamejared.com/get?n=strongersnowballs&gv=26.2&ml=neoforge"
 displayURL = "https://www.curseforge.com/minecraft/mc-mods/stronger-snowballs"
 logoFile = "logo_strongersnowballs.png"
 logoBlur = false
@@ -23,14 +23,14 @@ config = "strongersnowballs.neoforge.mixins.json"
 [[dependencies.strongersnowballs]]
 modId = "minecraft"
 type = "required"
-versionRange = "26.1"
+versionRange = "26.2"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.strongersnowballs]]
 modId = "neoforge"
 type = "required"
-versionRange = "[26.1.0.1-beta,)"
+versionRange = "[26.2.0.1-beta,)"
 ordering = "NONE"
 side = "BOTH"
 
